@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -e
+
 # Argument parsing
 if [ "$1" = "jacoco" ]
 then
@@ -12,15 +15,17 @@ fi
 OUTDIR=sandbox/single
 
 MKDIR=mkdir
+RM=rm
 SEP=:
 case "`uname`" in
     CYGWIN* )
       MKDIR=mkdir.exe
+      RM=rm.exe
       SEP=";"
       ;;
 esac
-rm -fr $OUTDIR
-$MKDIR -p $OUTDIR
+$RM -fr $OUTDIR || true
+$MKDIR -p $OUTDIR || true
 
 function cleanup () {
   RC="`paste $OUTDIR/status.* | sed 's/[[:blank:]]//g'`"

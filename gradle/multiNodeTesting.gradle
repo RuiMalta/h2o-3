@@ -6,6 +6,8 @@ task testSingleNode(type: Exec) {
     }
     environment "PROJECT_NAME", project.name
     environment "BUILD_DIR", project.buildDir
+    mkdir "$projectDir/sandbox/single/"
+    mkdir "$projectDir/sandbox/multi/"
 
     def args = ['bash', './testSingleNode.sh']
     if (project.hasProperty("jacocoCoverage")) {
